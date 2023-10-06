@@ -1,22 +1,12 @@
 import { env } from "@/env";
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { migrate } from "drizzle-orm/better-sqlite3/migrator";
-import { Pool } from "pg";
+import { drizzle } from "drizzle-orm/node-postgres";
+import { Client } from "pg";
+import * as schema from "./schema";
 
-const pool = new Pool({
+const client = new Client({
   connectionString: env.DB_URL,
 });
 
-const db = drizzle(pool);
+client.connect();
 
-async function main() {
-  console.log("migrating... 🚀");
-  await migrate(db, { migrationsFolder: "drizzle" });
-  console.log("migration complete... ✨");
-  process.exit(0);
-}
-
-main().catch((err) => {
-  console.log(err);
-  process.exit(0);
-});
+export const db = drizzle(client, { schema: schema });
