@@ -1,0 +1,20 @@
+# version of docker compose
+version: "3"
+
+name: drizzle-rbac
+
+services:
+  db:
+    image: postgres
+    container_name: drizzle-rbac-db
+    restart: always
+    environment:
+      POSTGRESQL_ROOT_USER: dev
+      POSTGRESQL_ROOT_PASSWORD: dev
+      POSTGRESQL_DATABASE: drizzle-rbac
+    ports:
+      - 3308:3308
+
+volumes:
+  drizzle-rbac:
+    driver: local
