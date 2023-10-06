@@ -20,6 +20,13 @@ services:
     ports:
       - 3308:5432
 
+  # GUI to manage db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
 volumes:
   drizzle-rbac:
     driver: local
