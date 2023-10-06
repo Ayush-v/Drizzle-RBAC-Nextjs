@@ -7,11 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "db:push": "drizzle-kit push:sqlite",
-    "db:generate": "drizzle-kit generate:sqlite",
-    "db:drop": "drizzle-kit drop"
+    "db:migration": "drizzle-kit generate:pg",
+    "db:push": "drizzle-kit push:pg",
+    "db:generate": "drizzle-kit generate:pg",
+    "db:drop": "drizzle-kit drop",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
     "next": "13.5.4",
     "pg": "^8.11.3",

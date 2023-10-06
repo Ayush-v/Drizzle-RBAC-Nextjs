@@ -9,11 +9,16 @@ services:
     container_name: drizzle-rbac-db
     restart: always
     environment:
-      POSTGRESQL_ROOT_USER: dev
-      POSTGRESQL_ROOT_PASSWORD: dev
-      POSTGRESQL_DATABASE: drizzle-rbac
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: drizzle-rbac
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "dev", "-d", "drizzle-rbac"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
     ports:
-      - 3308:3308
+      - 3308:5432
 
 volumes:
   drizzle-rbac:
