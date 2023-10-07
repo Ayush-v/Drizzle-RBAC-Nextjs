@@ -1,22 +1,30 @@
-import { env } from "@/env";
-import { drizzle } from "drizzle-orm/better-sqlite3";
-import { migrate } from "drizzle-orm/better-sqlite3/migrator";
-import { Pool } from "pg";
+/* 
+This file was previously used to generate migrations based on you DrizzleORM schema. Now it is no longer in use because drizzle fixed the issue with the drizzle-kit generate:pg
+*/
 
-const pool = new Pool({
-  connectionString: env.DB_URL,
-});
+/* 
+It can still be used and working perfectly fine but i would preffer the built in way
+*/
 
-const db = drizzle(pool);
+// import { env } from "@/env";
+// import { drizzle } from "drizzle-orm/node-postgres";
+// import { migrate } from "drizzle-orm/node-postgres/migrator";
+// import { Pool } from "pg";
 
-async function main() {
-  console.log("migrating... 🚀");
-  await migrate(db, { migrationsFolder: "drizzle" });
-  console.log("migration complete... ✨");
-  process.exit(0);
-}
+// const pool = new Pool({
+//   connectionString: env.DB_URL,
+// });
 
-main().catch((err) => {
-  console.log(err);
-  process.exit(0);
-});
+// const db = drizzle(pool);
+
+// async function main() {
+//   console.log("migrating... 🚀");
+//   await migrate(db, { migrationsFolder: "drizzle" });
+//   console.log("migration complete... ✨");
+//   process.exit(0);
+// }
+
+// main().catch((err) => {
+//   console.log(err);
+//   process.exit(0);
+// });
