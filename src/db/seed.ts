@@ -1,9 +1,9 @@
 import { Pool } from "pg";
-import { users } from "./schema";
-import { faker } from "@faker-js/faker";
+import { notes, users } from "./schema";
 import { drizzle } from "drizzle-orm/node-postgres";
-// import { env } from "process";
 import "dotenv/config";
+import { createUser } from "./db-utils";
+import { faker } from "@faker-js/faker";
 
 const pool = new Pool({
   connectionString: process.env.DB_URL,
@@ -12,20 +12,36 @@ const pool = new Pool({
 const db = drizzle(pool);
 
 const main = async () => {
-  const data: (typeof users.$inferInsert)[] = [];
+  console.log("🌱 Seeding...");
+  console.time(`🌱 Database has been seeded`);
+  console.time("🧹 Cleaned up the database...");
+  await db.delete(notes);
+  await db.delete(users);
+  console.timeEnd("🧹 Cleaned up the database...");
 
-  for (let i = 0; i < 20; i++) {
-    data.push({
-      name: faker.internet.userName(),
-      email: faker.internet.email(),
-      password: faker.internet.password(),
-    });
+  const totalUsers = 3;
+  console.time(`👤 Creating ${totalUsers} users...`);
+  for (let i = 0; i < totalUsers; i++) {
+    const user = createUser();
+
+    await db.insert(users).values(user);
+
+    const notesToInsert = Array.from({
+      length: faker.number.int({ min: 1, max: 5 }),
+    }).map(() => ({
+      owner: user.username,
+      title: faker.lorem.sentence(),
+      content: faker.lorem.paragraph(),
+    }));
+
+    console.log("notes", notesToInsert);
+
+    await db.insert(notes).values(notesToInsert);
   }
+  console.timeEnd(`👤 Created ${totalUsers} users...`);
 
-  console.log("Seeding start");
-  //   console.log(data);
-  await db.insert(users).values(data);
-  console.log("Seed done");
+  console.timeEnd(`🌱 Database has been seeded`);
+  pool.end();
   process.exit(0);
 };
 

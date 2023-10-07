@@ -14,6 +14,9 @@ dependencies:
   drizzle-orm:
     specifier: ^0.28.6
     version: 0.28.6(@types/pg@8.10.3)(pg@8.11.3)
+  enforce-unique:
+    specifier: ^1.2.0
+    version: 1.2.0
   esbuild-register:
     specifier: ^3.5.0
     version: 3.5.0(esbuild@0.18.20)
@@ -1142,6 +1145,10 @@ packages:
   /emoji-regex@9.2.2:
     resolution: {integrity: sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==}
     dev: true
+
+  /enforce-unique@1.2.0:
+    resolution: {integrity: sha512-ZBusLJB8QQhKMGNOlwARgov+s38rwPbhcifGlhEHqnGHcA8CCSEgbLujdABtpWwZyYnude4t5fviuEmSuV8Hig==}
+    dev: false
 
   /enhanced-resolve@5.15.0:
     resolution: {integrity: sha512-LXYT42KJ7lpIKECr2mAXIaMldcNCh/7E0KBKOu4KSfkHmP+mZmSs+8V5gBAqisWBy0OO4W5Oyys0GO1Y8KtdKg==}
