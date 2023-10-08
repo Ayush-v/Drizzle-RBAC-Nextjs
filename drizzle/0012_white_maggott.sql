@@ -1,0 +1,1 @@
+ALTER TABLE "users_to_roles" ALTER COLUMN "role_id" DROP DEFAULT;
