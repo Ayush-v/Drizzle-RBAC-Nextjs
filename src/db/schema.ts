@@ -21,7 +21,7 @@ export const users = pgTable("users", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   notes: many(notes),
-  roles: many(role),
+  usersToRoles: many(usersToRoles),
 }));
 
 export const role = pgTable("role", {
@@ -33,8 +33,8 @@ export const role = pgTable("role", {
 });
 
 export const roleRelations = relations(role, ({ many }) => ({
-  users: many(users),
-  permissions: many(permission),
+  usersToRoles: many(usersToRoles),
+  permissionsToRoles: many(permissionsToRoles),
 }));
 
 export const usersToRoles = pgTable(
@@ -74,7 +74,7 @@ export const permission = pgTable("permission", {
 });
 
 export const permissionRelations = relations(permission, ({ many }) => ({
-  roles: many(role),
+  permissionsToRoles: many(permissionsToRoles),
 }));
 
 export const permissionsToRoles = pgTable(
@@ -97,7 +97,6 @@ export const permissionsToRolesRelations = relations(
   ({ one }) => ({
     role: one(role, {
       fields: [permissionsToRoles.roleId],
-
       references: [role.id],
     }),
     permission: one(permission, {
