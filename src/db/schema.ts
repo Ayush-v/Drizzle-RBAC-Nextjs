@@ -17,6 +17,10 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
+export const usersRelations = relations(users, ({ many }) => ({
+  notes: many(notes),
+}));
+
 export const role = pgTable("role", {
   id: uuid("id").primaryKey().defaultRandom(),
   name: varchar("name", { length: 256 }).unique().notNull(),
@@ -45,5 +49,5 @@ export const notes = pgTable("notes", {
 });
 
 export const notesReations = relations(notes, ({ one }) => ({
-  author: one(users, { fields: [notes.id], references: [users.id] }),
+  author: one(users, { fields: [notes.owner], references: [users.username] }),
 }));
