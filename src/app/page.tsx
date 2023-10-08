@@ -1,8 +1,11 @@
 import { db } from "@/db";
-import { users } from "@/db/schema";
 
 export default async function Home() {
-  const result = await db.select().from(users);
+  const result = await db.query.users.findMany({
+    with: {
+      notes: true,
+    },
+  });
 
   return (
     <main>
@@ -10,9 +13,28 @@ export default async function Home() {
         <h1>All Users from Drizzle</h1>
         <div className="space-y-2 divide-y">
           {result.map((user) => (
-            <div key={user.id} className="border rounded-lg p-4">
-              <h1 className="text-xl">name: {user.name}</h1>
-              <h2>email: {user.email}</h2>
+            <div key={user.id} className="ring-1 rounded-lg p-4">
+              <h1 className="text-xl">{user.name}</h1>
+              <h2>mail: {user.email}</h2>
+              {user.createdAt ? (
+                <time>
+                  <span>Created At:</span>{" "}
+                  {new Date(user.createdAt).toDateString()}
+                </time>
+              ) : null}
+              <div className="grid grid-cols-2 gap-4">
+                {user.notes.map((note) => (
+                  <div key={note.id} className="border">
+                    <h3>{note.title}</h3>
+                    <p>{note.content}</p>
+                  </div>
+                ))}
+              </div>
+              {/* <div>
+                {user.roles.map((role) => (
+                  <div key={role.id}>{role?.name}</div>
+                ))}
+              </div> */}
             </div>
           ))}
         </div>
