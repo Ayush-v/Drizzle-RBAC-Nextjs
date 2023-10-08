@@ -1,6 +1,8 @@
 import { relations } from "drizzle-orm";
 import {
+  integer,
   pgTable,
+  primaryKey,
   serial,
   text,
   timestamp,
@@ -19,6 +21,7 @@ export const users = pgTable("users", {
 
 export const usersRelations = relations(users, ({ many }) => ({
   notes: many(notes),
+  roles: many(role),
 }));
 
 export const role = pgTable("role", {
@@ -29,6 +32,37 @@ export const role = pgTable("role", {
   updatedAt: timestamp("updated_at", { withTimezone: true }),
 });
 
+export const roleRelations = relations(role, ({ many }) => ({
+  users: many(users),
+  permissions: many(permission),
+}));
+
+export const usersToRoles = pgTable(
+  "users_to_roles",
+  {
+    roleId: uuid("role_id")
+      .notNull()
+      .references(() => role.id),
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
+  },
+  (t) => ({
+    pk: primaryKey(t.roleId, t.userId),
+  })
+);
+
+export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
+  role: one(role, {
+    fields: [usersToRoles.roleId],
+    references: [role.id],
+  }),
+  user: one(users, {
+    fields: [usersToRoles.userId],
+    references: [users.id],
+  }),
+}));
+
 export const permission = pgTable("permission", {
   id: uuid("id").primaryKey().defaultRandom(),
   action: varchar("action", { length: 256 }).unique().notNull(),
@@ -38,6 +72,40 @@ export const permission = pgTable("permission", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }),
 });
+
+export const permissionRelations = relations(permission, ({ many }) => ({
+  roles: many(role),
+}));
+
+export const permissionsToRoles = pgTable(
+  "permissions_to_roles",
+  {
+    roleId: uuid("role_id")
+      .notNull()
+      .references(() => role.id),
+    permissionId: uuid("permission_id")
+      .notNull()
+      .references(() => permission.id),
+  },
+  (t) => ({
+    pk: primaryKey(t.roleId, t.permissionId),
+  })
+);
+
+export const permissionsToRolesRelations = relations(
+  permissionsToRoles,
+  ({ one }) => ({
+    role: one(role, {
+      fields: [permissionsToRoles.roleId],
+
+      references: [role.id],
+    }),
+    permission: one(permission, {
+      fields: [permissionsToRoles.permissionId],
+      references: [permission.id],
+    }),
+  })
+);
 
 export const notes = pgTable("notes", {
   id: uuid("id").primaryKey().defaultRandom(),
