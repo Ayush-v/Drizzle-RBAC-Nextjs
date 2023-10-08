@@ -1,7 +1,7 @@
 import { db } from "@/db";
 
 export default async function Home() {
-  const result = await db.query.users.findMany({
+  const users = await db.query.user.findMany({
     with: {
       notes: true,
     },
@@ -12,7 +12,7 @@ export default async function Home() {
       <div className="container mx-auto p-4">
         <h1>All Users from Drizzle</h1>
         <div className="space-y-2 divide-y">
-          {result.map((user) => (
+          {users.map((user) => (
             <div key={user.id} className="ring-1 rounded-lg p-4">
               <h1 className="text-xl">{user.name}</h1>
               <h2>mail: {user.email}</h2>

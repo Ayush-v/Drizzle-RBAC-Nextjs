@@ -10,7 +10,7 @@ import {
   varchar,
 } from "drizzle-orm/pg-core";
 
-export const users = pgTable("users", {
+export const user = pgTable("user", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 256 }),
   username: varchar("username", { length: 256 }).unique().notNull(),
@@ -19,9 +19,9 @@ export const users = pgTable("users", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
-export const usersRelations = relations(users, ({ many }) => ({
-  notes: many(notes),
-  usersToRoles: many(usersToRoles),
+export const userRelations = relations(user, ({ many }) => ({
+  notes: many(note),
+  roles: many(usersToRoles),
 }));
 
 export const role = pgTable("role", {
@@ -33,8 +33,8 @@ export const role = pgTable("role", {
 });
 
 export const roleRelations = relations(role, ({ many }) => ({
-  usersToRoles: many(usersToRoles),
-  permissionsToRoles: many(permissionsToRoles),
+  users: many(usersToRoles),
+  permissions: many(permissionsToRoles),
 }));
 
 export const usersToRoles = pgTable(
@@ -45,7 +45,7 @@ export const usersToRoles = pgTable(
       .references(() => role.id),
     userId: integer("user_id")
       .notNull()
-      .references(() => users.id),
+      .references(() => user.id),
   },
   (t) => ({
     pk: primaryKey(t.roleId, t.userId),
@@ -57,9 +57,9 @@ export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
     fields: [usersToRoles.roleId],
     references: [role.id],
   }),
-  user: one(users, {
+  user: one(user, {
     fields: [usersToRoles.userId],
-    references: [users.id],
+    references: [user.id],
   }),
 }));
 
@@ -74,7 +74,7 @@ export const permission = pgTable("permission", {
 });
 
 export const permissionRelations = relations(permission, ({ many }) => ({
-  permissionsToRoles: many(permissionsToRoles),
+  roles: many(permissionsToRoles),
 }));
 
 export const permissionsToRoles = pgTable(
@@ -106,15 +106,15 @@ export const permissionsToRolesRelations = relations(
   })
 );
 
-export const notes = pgTable("notes", {
+export const note = pgTable("note", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: varchar("title", { length: 256 }).notNull(),
   content: text("content").notNull(),
-  owner: varchar("owner").notNull(),
+  ownerId: varchar("owner").notNull(),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }),
 });
 
-export const notesReations = relations(notes, ({ one }) => ({
-  author: one(users, { fields: [notes.owner], references: [users.username] }),
+export const noteReations = relations(note, ({ one }) => ({
+  owner: one(user, { fields: [note.ownerId], references: [user.username] }),
 }));
