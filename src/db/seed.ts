@@ -49,7 +49,7 @@ const main = async () => {
     where: (permission, { eq }) => eq(permission.access, "any"),
   });
   const persmissionUser = await database.query.permission.findMany({
-    where: (permission, { eq }) => eq(permission.entity, "own"),
+    where: (permission, { eq }) => eq(permission.access, "own"),
   });
 
   const userRoleData = await db
@@ -68,8 +68,6 @@ const main = async () => {
     .returning({
       roleId: role.id,
     });
-
-  console.log({ userRoleData, adminRoleData });
 
   await persmissionAdmin.map(
     async ({ id }) =>
