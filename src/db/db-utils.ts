@@ -1,5 +1,6 @@
 import { faker } from "@faker-js/faker";
 import { UniqueEnforcer } from "enforce-unique";
+import bcrypt from "bcryptjs";
 
 const uniqueUsernameEnforcer = new UniqueEnforcer();
 
@@ -26,6 +27,9 @@ export function createUser() {
     username,
     name: `${firstName} ${lastName}`,
     email: faker.internet.email({ firstName, lastName }).toLowerCase(),
-    password: faker.internet.password(),
   };
+}
+
+export function createPassword(password: string = faker.internet.password()) {
+  return bcrypt.hashSync(password, 10);
 }

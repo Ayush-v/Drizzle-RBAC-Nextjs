@@ -8,6 +8,7 @@ import {
   timestamp,
   uuid,
   varchar,
+  unique,
 } from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
@@ -63,15 +64,21 @@ export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
   }),
 }));
 
-export const permission = pgTable("permission", {
-  id: uuid("id").primaryKey().defaultRandom(),
-  action: varchar("action", { length: 256 }).unique().notNull(),
-  entity: varchar("entity", { length: 256 }).unique().notNull(),
-  access: varchar("access", { length: 256 }).unique().notNull(),
-  description: text("description").default(""),
-  createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
-  updatedAt: timestamp("updated_at", { withTimezone: true }),
-});
+export const permission = pgTable(
+  "permission",
+  {
+    id: uuid("id").primaryKey().defaultRandom(),
+    action: varchar("action", { length: 256 }).notNull(),
+    entity: varchar("entity", { length: 256 }).notNull(),
+    access: varchar("access", { length: 256 }).notNull(),
+    description: text("description").default(""),
+    createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
+    updatedAt: timestamp("updated_at", { withTimezone: true }),
+  },
+  (t) => ({
+    unq: unique().on(t.action, t.entity, t.access),
+  })
+);
 
 export const permissionRelations = relations(permission, ({ many }) => ({
   roles: many(permissionsToRoles),
