@@ -24,16 +24,18 @@ export default async function Home() {
     <main>
       <div className="container mx-auto p-4">
         <h1>All Users from Drizzle</h1>
-        {/* <p>{JSON.stringify(users)}</p> */}
         <div className="space-y-2 divide-y">
           {users.map((user) => (
             <div key={user.id} className="ring-1 rounded-lg p-4">
-              <h1 className="text-xl">{user.name}</h1>
+              <h1 className="text-xl">
+                {user.id}
+                {user.name}
+              </h1>
               <h2>mail: {user.email}</h2>
               {user.createdAt ? (
                 <time>
                   <span>Created At:</span>{" "}
-                  {new Date(user.createdAt).toDateString()}
+                  {new Date(user.createdAt).toLocaleString()}
                 </time>
               ) : null}
               <div className="grid grid-cols-2 gap-4">

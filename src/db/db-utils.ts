@@ -1,6 +1,8 @@
 import { faker } from "@faker-js/faker";
 import { UniqueEnforcer } from "enforce-unique";
 import bcrypt from "bcryptjs";
+import type { NodePgDatabase } from "drizzle-orm/node-postgres";
+import type { PgTableWithColumns, TableConfig } from "drizzle-orm/pg-core";
 
 const uniqueUsernameEnforcer = new UniqueEnforcer();
 
@@ -32,4 +34,11 @@ export function createUser() {
 
 export function createPassword(password: string = faker.internet.password()) {
   return bcrypt.hashSync(password, 10);
+}
+
+export async function cleanupDB<T extends TableConfig>(
+  schema: NodePgDatabase<Record<string, never>>,
+  table: PgTableWithColumns<T>
+) {
+  await schema.delete(table);
 }

@@ -9,7 +9,7 @@ import {
 } from "./schema";
 import { drizzle } from "drizzle-orm/node-postgres";
 import "dotenv/config";
-import { createPassword, createUser } from "./db-utils";
+import { cleanupDB, createPassword, createUser } from "./db-utils";
 import { faker } from "@faker-js/faker";
 import { db as database } from "./";
 
@@ -23,12 +23,12 @@ const main = async () => {
   console.log("🌱 Seeding...");
   console.time(`🌱 Database has been seeded`);
   console.time("🧹 Cleaned up the database...");
-  await db.delete(usersToRoles);
-  await db.delete(permissionsToRoles);
-  await db.delete(user);
-  await db.delete(note);
-  await db.delete(role);
-  await db.delete(permission);
+  cleanupDB(db, usersToRoles);
+  cleanupDB(db, permissionsToRoles);
+  cleanupDB(db, user);
+  cleanupDB(db, note);
+  cleanupDB(db, role);
+  cleanupDB(db, permission);
   console.timeEnd("🧹 Cleaned up the database...");
 
   console.time("🔑 Created Permissons...");
@@ -127,7 +127,19 @@ const main = async () => {
     })
     .returning({
       userId: user.id,
+      userName: user.username,
     });
+
+  await db.insert(note).values(
+    Array.from({
+      length: faker.number.int({ min: 2, max: 5 }),
+    }).map(() => ({
+      ownerId: Codie[0].userName,
+      title: faker.lorem.sentence(),
+      content: faker.lorem.paragraph(),
+    }))
+  );
+
   await db.insert(usersToRoles).values([
     {
       roleId: adminRoleData[0].roleId,
