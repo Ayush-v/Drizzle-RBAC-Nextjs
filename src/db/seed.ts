@@ -1,11 +1,17 @@
 import { Pool } from "pg";
-import { note, permission, permissionsToRoles, role, user } from "./schema";
+import {
+  note,
+  permission,
+  permissionsToRoles,
+  role,
+  user,
+  usersToRoles,
+} from "./schema";
 import { drizzle } from "drizzle-orm/node-postgres";
 import "dotenv/config";
 import { createPassword, createUser } from "./db-utils";
 import { faker } from "@faker-js/faker";
 import { db as database } from "./";
-import { eq } from "drizzle-orm";
 
 const pool = new Pool({
   connectionString: process.env.DB_URL,
@@ -17,6 +23,8 @@ const main = async () => {
   console.log("🌱 Seeding...");
   console.time(`🌱 Database has been seeded`);
   console.time("🧹 Cleaned up the database...");
+  await db.delete(usersToRoles);
+  await db.delete(permissionsToRoles);
   await db.delete(user);
   await db.delete(note);
   await db.delete(role);
@@ -37,30 +45,48 @@ const main = async () => {
   console.timeEnd("🔑 Created Permissons...");
 
   console.time("👑 Created roles...");
-  await db.select().from(permission).where(eq(permission.entity, "user"));
-  const persmissionUser = await database.query.permission.findMany({
-    where: (permission, { eq }) => eq(permission.entity, "user"),
-  });
   const persmissionAdmin = await database.query.permission.findMany({
-    where: (permission, { eq }) => eq(permission.entity, "admin"),
+    where: (permission, { eq }) => eq(permission.access, "any"),
+  });
+  const persmissionUser = await database.query.permission.findMany({
+    where: (permission, { eq }) => eq(permission.entity, "own"),
   });
 
-  console.log({ persmissionUser, persmissionAdmin });
+  const userRoleData = await db
+    .insert(role)
+    .values({
+      name: "user",
+    })
+    .returning({
+      roleId: role.id,
+    });
+  const adminRoleData = await db
+    .insert(role)
+    .values({
+      name: "admin",
+    })
+    .returning({
+      roleId: role.id,
+    });
 
-  // const adminRole = await db
-  //   .insert(role)
-  //   .values({
-  //     name: "admin",
-  //   })
-  //   .returning({
-  //     roleId: role.id,
-  //   });
+  console.log({ userRoleData, adminRoleData });
 
-  // await db.insert(permissionsToRoles).values();
+  await persmissionAdmin.map(
+    async ({ id }) =>
+      await db.insert(permissionsToRoles).values({
+        permissionId: id,
+        roleId: adminRoleData[0].roleId,
+      })
+  );
 
-  await db.insert(role).values({
-    name: "user",
-  });
+  await persmissionUser.map(
+    async ({ id }) =>
+      await db.insert(permissionsToRoles).values({
+        permissionId: id,
+        roleId: userRoleData[0].roleId,
+      })
+  );
+
   console.timeEnd("👑 Created roles...");
 
   const totalUsers = 3;
@@ -68,9 +94,12 @@ const main = async () => {
   for (let i = 0; i < totalUsers; i++) {
     const userData = createUser();
 
-    await db
+    const createUse = await db
       .insert(user)
-      .values({ ...userData, password: createPassword(userData.username) });
+      .values({ ...userData, password: createPassword(userData.username) })
+      .returning({
+        userId: user.id,
+      });
 
     await db.insert(note).values(
       Array.from({
@@ -81,19 +110,36 @@ const main = async () => {
         content: faker.lorem.paragraph(),
       }))
     );
+
+    await db.insert(usersToRoles).values({
+      roleId: userRoleData[0].roleId,
+      userId: createUse[0].userId,
+    });
   }
   console.timeEnd(`👤 Creating ${totalUsers} users and 📒Notes...`);
 
   console.time(`👨🏻‍💻 Created admin user "Codie"`);
-  await db.insert(user).values({
-    email: "codie@code.dev",
-    name: "codie",
-    username: "codie",
-    password: createPassword("codiedev"),
-  });
-  await db.insert(role).values({
-    name: "admin",
-  });
+  const Codie = await db
+    .insert(user)
+    .values({
+      email: "codie@code.dev",
+      name: "codie",
+      username: "codie",
+      password: createPassword("codiedev"),
+    })
+    .returning({
+      userId: user.id,
+    });
+  await db.insert(usersToRoles).values([
+    {
+      roleId: adminRoleData[0].roleId,
+      userId: Codie[0].userId,
+    },
+    {
+      roleId: userRoleData[0].roleId,
+      userId: Codie[0].userId,
+    },
+  ]);
   console.time(`👨🏻‍💻 Created admin user "Codie"`);
 
   console.timeEnd(`🌱 Database has been seeded`);

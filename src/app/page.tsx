@@ -6,7 +6,15 @@ export default async function Home() {
       notes: true,
       roles: {
         with: {
-          role: true,
+          role: {
+            with: {
+              permissions: {
+                with: {
+                  permission: true,
+                },
+              },
+            },
+          },
         },
       },
     },
@@ -16,7 +24,7 @@ export default async function Home() {
     <main>
       <div className="container mx-auto p-4">
         <h1>All Users from Drizzle</h1>
-        <p>{JSON.stringify(users)}</p>
+        {/* <p>{JSON.stringify(users)}</p> */}
         <div className="space-y-2 divide-y">
           {users.map((user) => (
             <div key={user.id} className="ring-1 rounded-lg p-4">
@@ -39,6 +47,19 @@ export default async function Home() {
               <div>
                 {user.roles.map((role) => (
                   <div key={role.roleId}>{role?.role.name}</div>
+                ))}
+              </div>
+              <div>
+                {user.roles.map((role) => (
+                  <div key={role.roleId}>
+                    {role.role.permissions.map((permission) => (
+                      <div key={permission.permissionId}>
+                        <span>{permission.permission.access}</span>{" "}
+                        <span>{permission.permission.action}</span>{" "}
+                        <span>{permission.permission.entity}</span>
+                      </div>
+                    ))}
+                  </div>
                 ))}
               </div>
             </div>
