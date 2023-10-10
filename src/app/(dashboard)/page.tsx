@@ -1,30 +1,30 @@
-import { db } from "@/db";
+// import { db } from "@/db";
 
 export default async function Home() {
-  const users = await db.query.user.findMany({
-    with: {
-      notes: true,
-      roles: {
-        with: {
-          role: {
-            with: {
-              permissions: {
-                with: {
-                  permission: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
+  // const users = await db.query.user.findMany({
+  //   with: {
+  //     notes: true,
+  //     roles: {
+  //       with: {
+  //         role: {
+  //           with: {
+  //             permissions: {
+  //               with: {
+  //                 permission: true,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // });
 
   return (
     <main>
       <div className="container mx-auto p-4">
         <h1>All Users from Drizzle</h1>
-        <div className="space-y-2 divide-y">
+        {/* <div className="space-y-2 divide-y">
           {users.map((user) => (
             <div key={user.id} className="ring-1 rounded-lg p-4">
               <h1 className="text-xl">
@@ -66,7 +66,7 @@ export default async function Home() {
               </div>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
     </main>
   );

@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.orientation-sideways {
+  writing-mode: vertical-rl;
+  text-orientation: sideways;
+  rotate: 180deg;
+}
