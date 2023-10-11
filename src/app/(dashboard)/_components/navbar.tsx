@@ -10,6 +10,20 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Search } from "lucide-react";
+import Link from "next/link";
+
+const navlinks = [
+  {
+    title: "Home",
+    icon: "",
+    href: "/",
+  },
+  {
+    title: "Users",
+    icon: "",
+    href: "/users",
+  },
+];
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(true);
@@ -91,24 +105,28 @@ export default function NavBar() {
           <div className="space-y-2">
             <span className="text-sm text-muted-foreground">Pages</span>
             <ul className="space-y-2">
-              <li className="flex flex-col items-center">
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant={"outline"}
-                      className="w-full justify-center flex-col @2xs:flex-row @2xs:justify-start @2xs:px-4 @2xs:py-2 px-1.5 py-3 transition-all"
-                    >
-                      <HomeIcon className="@2xs:mr-2 h-4 w-4 shrink-0 transition-all" />
-                      <span className="hidden @2xs:inline-block transition-all">
-                        Home
-                      </span>
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent side="right" className="z-50 @2xs:hidden">
-                    <p>Home</p>
-                  </TooltipContent>
-                </Tooltip>
-              </li>
+              {navlinks.map((link) => (
+                <li className="flex flex-col items-center" key={link.href}>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Link href={link.href} className="w-full">
+                        <Button
+                          variant={"outline"}
+                          className="w-full justify-center flex-col @2xs:flex-row @2xs:justify-start @2xs:px-4 @2xs:py-2 px-1.5 py-3 transition-all"
+                        >
+                          <HomeIcon className="@2xs:mr-2 h-4 w-4 shrink-0 transition-all" />
+                          <span className="hidden @2xs:inline-block transition-all">
+                            {link.title}
+                          </span>
+                        </Button>
+                      </Link>
+                    </TooltipTrigger>
+                    <TooltipContent side="right" className="z-50 @2xs:hidden">
+                      <p>{link.title}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </li>
+              ))}
             </ul>
           </div>
         </div>
