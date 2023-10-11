@@ -1,5 +1,7 @@
 // import { db } from "@/db";
 
+import Link from "next/link";
+
 export default async function Home() {
   // const users = await db.query.user.findMany({
   //   with: {
@@ -22,8 +24,16 @@ export default async function Home() {
 
   return (
     <main>
-      <div className="container mx-auto p-4">
-        <h1>All Users from Drizzle</h1>
+      <div className="p-4">
+        {/* <h1>All Users from Drizzle</h1> */}
+        <h1 className="my-4">Under Construction</h1>
+        <Link
+          href="/dashboard"
+          className="bg-black rounded-lg px-2 py-1 text-white"
+        >
+          &gt; Dashboard
+        </Link>
+
         {/* <div className="space-y-2 divide-y">
           {users.map((user) => (
             <div key={user.id} className="ring-1 rounded-lg p-4">
