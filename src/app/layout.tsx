@@ -1,3 +1,4 @@
+import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
@@ -16,7 +17,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={manrope.className}>{children}</body>
+      <body className={manrope.className}>
+        <TooltipProvider delayDuration={150}>{children}</TooltipProvider>
+      </body>
     </html>
   );
 }

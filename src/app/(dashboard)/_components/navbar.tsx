@@ -2,21 +2,24 @@
 
 import { cn } from "@/lib/utils";
 import { useState } from "react";
-import TeamSwitcher from "./teamSwitcher";
 import { Button } from "@/components/ui/button";
-import { HomeIcon, NotionLogoIcon } from "@radix-ui/react-icons";
-import { CommandSeparator } from "@/components/ui/command";
-import { Separator } from "@/components/ui/separator";
+import { HomeIcon } from "@radix-ui/react-icons";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Search } from "lucide-react";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <nav className="border p-4 rounded-lg hidden sm:block">
+    <nav className="border p-4 rounded-lg">
       <div
         className={cn(
           isOpen ? "w-[200px]" : "w-12",
-          "mx-auto transition-[width] duration-700 @container space-y-2"
+          "mx-auto transition-[width] duration-700 @container"
         )}
       >
         <div
@@ -32,7 +35,7 @@ export default function NavBar() {
               viewBox="0 0 53 44"
               // viewBox="0 0 24 16"
               fill="none"
-              className="w-8 h-6"
+              className="w-12 @2xs:w-8 h-6"
             >
               <path
                 d="M23.2997 0L52.0461 28.6301V44H38.6311V34.1553L17.7522 13.3607L13.415 13.3607L13.415 44H0L0 0L23.2997 0ZM38.6311 15.2694V0L52.0461 0V15.2694L38.6311 15.2694Z"
@@ -66,66 +69,48 @@ export default function NavBar() {
             </svg>
           </button>
         </div>
-        <TeamSwitcher navOpen={isOpen} />
-        <div className="space-y-2">
-          <span className="text-sm text-muted-foreground">Pages</span>
-          <ul className="space-y-2">
-            <li className="flex flex-col items-center">
-              <Button
-                className={cn(
-                  isOpen
-                    ? "w-full justify-start"
-                    : "flex-col w-full justify-center items-center"
-                )}
-              >
-                <HomeIcon className="h-4 w-4 shrink-0" />
-                {isOpen ? <span className="ml-2">Home</span> : null}
-              </Button>
-              {!isOpen ? <span>Home</span> : null}
-            </li>
-            <li className="flex flex-col items-center">
-              <Button
-                variant={"outline"}
-                className={cn(
-                  isOpen
-                    ? "w-full justify-start"
-                    : "flex-col w-full justify-center items-center"
-                )}
-              >
-                <HomeIcon className="h-4 w-4 shrink-0" />
-                {isOpen ? <span className="ml-2">Todos</span> : null}
-              </Button>
-              {!isOpen ? <span>Todos</span> : null}
-            </li>
-            <li className="flex flex-col items-center">
-              <Button
-                variant={"outline"}
-                className={cn(
-                  isOpen
-                    ? "w-full justify-start"
-                    : "flex-col w-full justify-center items-center"
-                )}
-              >
-                <NotionLogoIcon className="h-4 w-4 shrink-0" />
-                {isOpen ? <span className="ml-2">Notes</span> : null}
-              </Button>
-              {!isOpen ? <span>Notes</span> : null}
-            </li>
-            <li className="flex flex-col items-center">
-              <Button
-                variant={"outline"}
-                className={cn(
-                  isOpen
-                    ? "w-full justify-start"
-                    : "flex-col w-full justify-center items-center"
-                )}
-              >
-                <HomeIcon className="h-4 w-4 shrink-0" />
-                {isOpen ? <span className="ml-2">Home</span> : null}
-              </Button>
-              {!isOpen ? <span>Home</span> : null}
-            </li>
-          </ul>
+        {/* <TeamSwitcher navOpen={isOpen} /> */}
+        <div className="mt-4 space-y-4">
+          <Button
+            variant="outline"
+            className="relative h-10 w-full justify-start @2xs:px-3"
+            onClick={() => setIsOpen(true)}
+          >
+            <Search
+              className="h-4 w-4 @2xs:mr-2 shrink-0 @2xs:opacity-50"
+              aria-hidden="true"
+            />
+            <span className="hidden @2xs:inline-flex opacity-50">
+              Search...
+            </span>
+            <span className="sr-only">Search</span>
+            <kbd className="pointer-events-none absolute right-1.5 top-2 hidden h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium opacity-100 @2xs:flex">
+              <span className="text-xs">⌘</span>K
+            </kbd>
+          </Button>
+          <div className="space-y-2">
+            <span className="text-sm text-muted-foreground">Pages</span>
+            <ul className="space-y-2">
+              <li className="flex flex-col items-center">
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant={"outline"}
+                      className="w-full justify-center flex-col @2xs:flex-row @2xs:justify-start @2xs:px-4 @2xs:py-2 px-1.5 py-3 transition-all"
+                    >
+                      <HomeIcon className="@2xs:mr-2 h-4 w-4 shrink-0 transition-all" />
+                      <span className="hidden @2xs:inline-block transition-all">
+                        Home
+                      </span>
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent side="right" className="z-50 @2xs:hidden">
+                    <p>Home</p>
+                  </TooltipContent>
+                </Tooltip>
+              </li>
+            </ul>
+          </div>
         </div>
       </div>
     </nav>
