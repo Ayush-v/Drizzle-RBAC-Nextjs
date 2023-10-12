@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
 import NavBar from "./_components/navbar";
 import Breadcrumbs from "./_components/breadcrumbs";
+import Header from "./_components/header";
 
 export default function DashBoardLayout({ children }: { children: ReactNode }) {
   return (
@@ -10,7 +11,7 @@ export default function DashBoardLayout({ children }: { children: ReactNode }) {
           <div className="flex flex-grow h-[calc(100vh-8px)] sm:h-[calc(100vh-16px)] gap-2">
             <NavBar />
             <div className="flex flex-grow flex-col gap-2">
-              <Breadcrumbs />
+              <Header />
               <main className="flex flex-col h-full flex-grow border rounded-lg px-6 py-6 overflow-y-auto">
                 {children}
               </main>

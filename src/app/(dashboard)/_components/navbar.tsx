@@ -9,18 +9,22 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Search } from "lucide-react";
+import { Search, Users2Icon } from "lucide-react";
 import Link from "next/link";
 
 const navlinks = [
   {
     title: "Home",
-    icon: "",
+    icon: (
+      <HomeIcon className="@2xs:mr-2 h-4 w-4 flex-shrink-0 transition-all" />
+    ),
     href: "/",
   },
   {
     title: "Users",
-    icon: "",
+    icon: (
+      <Users2Icon className="@2xs:mr-2 h-4 w-4 flex-shrink-0 transition-all" />
+    ),
     href: "/users",
   },
 ];
@@ -49,14 +53,18 @@ export default function NavBar() {
               viewBox="0 0 53 44"
               // viewBox="0 0 24 16"
               fill="none"
-              className="w-12 @2xs:w-8 h-6"
+              className="w-12 @2xs:w-8 h-6 fill-secondary-foreground"
             >
               <path
                 d="M23.2997 0L52.0461 28.6301V44H38.6311V34.1553L17.7522 13.3607L13.415 13.3607L13.415 44H0L0 0L23.2997 0ZM38.6311 15.2694V0L52.0461 0V15.2694L38.6311 15.2694Z"
-                fill="#212326"
+                // fill="#212326"
               ></path>
             </svg>
-            {isOpen ? <span className="font-semibold">ote</span> : null}
+            {isOpen ? (
+              <span className="font-semibold text-secondary-foreground">
+                ote
+              </span>
+            ) : null}
           </div>
           <button
             onClick={() => setIsOpen(!isOpen)}
@@ -70,16 +78,20 @@ export default function NavBar() {
               height="20"
               viewBox="0 0 24 24"
               fill="none"
-              className="bg-white"
+              className="stroke-secondary-foreground"
             >
               <path
                 d="M20.1088 20.1088C18.7175 21.5 16.4783 21.5 12 21.5C7.52166 21.5 5.28249 21.5 3.89124 20.1088C2.5 18.7175 2.5 16.4783 2.5 12C2.5 7.52166 2.5 5.28248 3.89124 3.89124C5.28249 2.5 7.52166 2.5 12 2.5C16.4783 2.5 18.7175 2.5 20.1088 3.89124C21.5 5.28249 21.5 7.52166 21.5 12C21.5 16.4783 21.5 18.7175 20.1088 20.1088Z"
-                stroke="#141B34"
+                // stroke="#141B34"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
-              <path d="M9 21.5L9 2.5" stroke="#141B34" strokeWidth="2" />
+              <path
+                d="M9 21.5L9 2.5"
+                // stroke="#141B34"
+                strokeWidth="2"
+              />
             </svg>
           </button>
         </div>
@@ -114,14 +126,14 @@ export default function NavBar() {
                           variant={"outline"}
                           className="w-full justify-center flex-col @2xs:flex-row @2xs:justify-start @2xs:px-4 @2xs:py-2 px-1.5 py-3 transition-all"
                         >
-                          <HomeIcon className="@2xs:mr-2 h-4 w-4 shrink-0 transition-all" />
+                          {link.icon}
                           <span className="hidden @2xs:inline-block transition-all">
                             {link.title}
                           </span>
                         </Button>
                       </Link>
                     </TooltipTrigger>
-                    <TooltipContent side="right" className="z-50 @2xs:hidden">
+                    <TooltipContent side="right" className="@2xs:hidden">
                       <p>{link.title}</p>
                     </TooltipContent>
                   </Tooltip>

@@ -1,7 +1,15 @@
 // import { db } from "@/db";
 
 import Header from "@/components/Header";
-// import Link from "next/link";
+// import {
+//   Table,
+//   TableBody,
+//   TableCell,
+//   TableHead,
+//   TableHeader,
+//   TableRow,
+// } from "@/components/ui/table";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default async function Home() {
   // const users = await db.query.user.findMany({
@@ -25,55 +33,83 @@ export default async function Home() {
 
   return (
     <main>
-      <Header title="All Drizzle Users" description={"Under Construction"} />
-      <>
-        {/* <h1>All Users from Drizzle</h1> */}
-        {/* <h1 className="my-4">Under Construction</h1> */}
-
-        {/* <div className="space-y-2 divide-y">
-          {users.map((user) => (
-            <div key={user.id} className="ring-1 rounded-lg p-4">
-              <h1 className="text-xl">
-                {user.id}
-                {user.name}
-              </h1>
-              <h2>mail: {user.email}</h2>
-              {user.createdAt ? (
-                <time>
-                  <span>Created At:</span>{" "}
-                  {new Date(user.createdAt).toLocaleString()}
-                </time>
-              ) : null}
-              <div className="grid grid-cols-2 gap-4">
-                {user.notes.map((note) => (
-                  <div key={note.id} className="border">
-                    <h3>{note.title}</h3>
-                    <p>{note.content}</p>
-                  </div>
-                ))}
-              </div>
-              <div>
-                {user.roles.map((role) => (
-                  <div key={role.roleId}>{role?.role.name}</div>
-                ))}
-              </div>
-              <div>
-                {user.roles.map((role) => (
-                  <div key={role.roleId}>
-                    {role.role.permissions.map((permission) => (
-                      <div key={permission.permissionId}>
-                        <span>{permission.permission.access}</span>{" "}
-                        <span>{permission.permission.action}</span>{" "}
-                        <span>{permission.permission.entity}</span>
-                      </div>
+      <Header title="Users" description="Role Based Access Control" />
+      <Tabs defaultValue="all" className="mb-2">
+        <TabsList>
+          <TabsTrigger value="all">All</TabsTrigger>
+          <TabsTrigger value="active">Active</TabsTrigger>
+        </TabsList>
+        {/* <TabsContent value="all">
+          <Table className="overflow-x-auto">
+            <TableHeader>
+              <TableRow className="border-none">
+                <TableHead>Id</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Created At</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>{user.id}</TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell className="space-x-2">
+                    {user.roles.map((role) => (
+                      <span
+                        key={role.roleId}
+                        className="bg-secondary rounded-lg px-2 py-0.5 text-secondary-foreground"
+                      >
+                        {role.role.name}
+                      </span>
                     ))}
-                  </div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div> */}
-      </>
+                  </TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>
+                    {new Date(user.createdAt ?? "").toLocaleString()}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TabsContent>
+        <TabsContent value="active">
+          <Table className="overflow-x-auto">
+            <TableHeader>
+              <TableRow className="border-none">
+                <TableHead>Id</TableHead>
+                <TableHead>Name</TableHead>
+                <TableHead>Role</TableHead>
+                <TableHead>Email</TableHead>
+                <TableHead>Created At</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {users.map((user) => (
+                <TableRow key={user.id}>
+                  <TableCell>{user.id}</TableCell>
+                  <TableCell>{user.name}</TableCell>
+                  <TableCell className="space-x-2">
+                    {user.roles.map((role) => (
+                      <span
+                        key={role.roleId}
+                        className="bg-secondary rounded-lg px-2 py-0.5 text-secondary-foreground"
+                      >
+                        {role.role.name}
+                      </span>
+                    ))}
+                  </TableCell>
+                  <TableCell>{user.email}</TableCell>
+                  <TableCell>
+                    {new Date(user.createdAt ?? "").toLocaleString()}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TabsContent> */}
+      </Tabs>
     </main>
   );
 }

@@ -1,7 +1,7 @@
-import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
+import { ThemeProvider } from "@/components/providers";
 
 const manrope = Manrope({ subsets: ["latin"] });
 
@@ -18,7 +18,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={manrope.className}>
-        <TooltipProvider delayDuration={150}>{children}</TooltipProvider>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );
