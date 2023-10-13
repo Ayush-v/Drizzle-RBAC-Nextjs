@@ -1,35 +1,35 @@
-// import { db } from "@/db";
+import { db } from "@/db";
 
 import Header from "@/components/Header";
-// import {
-//   Table,
-//   TableBody,
-//   TableCell,
-//   TableHead,
-//   TableHeader,
-//   TableRow,
-// } from "@/components/ui/table";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default async function Home() {
-  // const users = await db.query.user.findMany({
-  //   with: {
-  //     notes: true,
-  //     roles: {
-  //       with: {
-  //         role: {
-  //           with: {
-  //             permissions: {
-  //               with: {
-  //                 permission: true,
-  //               },
-  //             },
-  //           },
-  //         },
-  //       },
-  //     },
-  //   },
-  // });
+  const users = await db.query.user.findMany({
+    with: {
+      notes: true,
+      roles: {
+        with: {
+          role: {
+            with: {
+              permissions: {
+                with: {
+                  permission: true,
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  });
 
   return (
     <main>
@@ -39,7 +39,7 @@ export default async function Home() {
           <TabsTrigger value="all">All</TabsTrigger>
           <TabsTrigger value="active">Active</TabsTrigger>
         </TabsList>
-        {/* <TabsContent value="all">
+        <TabsContent value="all">
           <Table className="overflow-x-auto">
             <TableHeader>
               <TableRow className="border-none">
@@ -108,7 +108,7 @@ export default async function Home() {
               ))}
             </TableBody>
           </Table>
-        </TabsContent> */}
+        </TabsContent>
       </Tabs>
     </main>
   );
