@@ -69,21 +69,23 @@ const main = async () => {
       roleId: role.id,
     });
 
-  await persmissionAdmin.map(
-    async ({ id }) =>
-      await db.insert(permissionsToRoles).values({
+  // the spread operator (...) is used to spread the arrays returned by Array.map() into the array passed to Promise.all(). This ensures that Promise.all() receives an array of promises, as expected.
+
+  await Promise.all([
+    ...persmissionAdmin.map(({ id }) =>
+      db.insert(permissionsToRoles).values({
         permissionId: id,
         roleId: adminRoleData[0].roleId,
       })
-  );
-
-  await persmissionUser.map(
-    async ({ id }) =>
-      await db.insert(permissionsToRoles).values({
-        permissionId: id,
-        roleId: userRoleData[0].roleId,
-      })
-  );
+    ),
+    ...persmissionUser.map(
+      async ({ id }) =>
+        await db.insert(permissionsToRoles).values({
+          permissionId: id,
+          roleId: userRoleData[0].roleId,
+        })
+    ),
+  ]);
 
   console.timeEnd("👑 Created roles...");
 

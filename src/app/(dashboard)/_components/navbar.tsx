@@ -3,37 +3,20 @@
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { HomeIcon } from "@radix-ui/react-icons";
 import {
   Tooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { Search, Users2Icon } from "lucide-react";
+import { Search } from "lucide-react";
 import Link from "next/link";
-
-const navlinks = [
-  {
-    title: "Home",
-    icon: (
-      <HomeIcon className="@2xs:mr-2 h-4 w-4 flex-shrink-0 transition-all" />
-    ),
-    href: "/",
-  },
-  {
-    title: "Users",
-    icon: (
-      <Users2Icon className="@2xs:mr-2 h-4 w-4 flex-shrink-0 transition-all" />
-    ),
-    href: "/users",
-  },
-];
+import { navlinks } from "@/lib/nav-links";
 
 export default function NavBar() {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <nav className="border p-4 rounded-lg">
+    <nav className="border p-4 rounded-lg h-full">
       <div
         className={cn(
           isOpen ? "w-[200px]" : "w-12",

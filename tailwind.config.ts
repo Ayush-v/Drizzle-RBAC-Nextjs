@@ -73,6 +73,10 @@ const config: Config = {
       containers: {
         "2xs": "12rem",
       },
+      boxShadow: {
+        button: "0px 1px 2px, 0px 0px 0px 1px inset, 0px 0px 0px 1px inset;",
+        box: "0px 1px 8px, 0px -1px 1px inset;",
+      },
     },
   },
   plugins: [
