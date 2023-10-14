@@ -11,7 +11,7 @@ export default function DashBoardLayout({ children }: { children: ReactNode }) {
             <div className="hidden md:block">
               <NavBar />
             </div>
-            <div className="flex flex-grow flex-col gap-2">
+            <div className="flex flex-grow flex-col gap-2 overflow-x-hidden">
               <Header />
               <main className="flex flex-col h-full flex-grow border rounded-lg px-6 py-6 overflow-y-auto">
                 {children}
