@@ -13,7 +13,7 @@ export default function DashBoardLayout({ children }: { children: ReactNode }) {
             </div>
             <div className="flex flex-grow flex-col gap-2 overflow-x-hidden">
               <Header />
-              <main className="flex flex-col h-full flex-grow border rounded-lg px-6 py-6 overflow-y-auto">
+              <main className="flex flex-col h-full flex-grow border rounded-lg px-4 md:px-6 py-6 overflow-y-auto">
                 {children}
               </main>
             </div>

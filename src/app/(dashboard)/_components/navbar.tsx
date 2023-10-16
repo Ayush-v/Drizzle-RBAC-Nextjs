@@ -1,7 +1,6 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Tooltip,
@@ -11,21 +10,22 @@ import {
 import { Search } from "lucide-react";
 import Link from "next/link";
 import { navlinks } from "@/lib/nav-links";
+import { useNavbarState } from "@/hooks/store/useNavbarState";
 
 export default function NavBar() {
-  const [isOpen, setIsOpen] = useState(true);
+  const { open, toggle } = useNavbarState();
 
   return (
     <nav className="border p-4 rounded-lg h-full">
       <div
         className={cn(
-          isOpen ? "w-[200px]" : "w-12",
+          open ? "w-[200px]" : "w-12",
           "mx-auto transition-[width] duration-700 @container"
         )}
       >
         <div
           className={cn(
-            isOpen ? "flex justify-between items-center" : "",
+            open ? "flex justify-between items-center" : "",
             "relative"
           )}
         >
@@ -43,16 +43,16 @@ export default function NavBar() {
                 // fill="#212326"
               ></path>
             </svg>
-            {isOpen ? (
+            {open ? (
               <span className="font-semibold text-secondary-foreground">
                 ote
               </span>
             ) : null}
           </div>
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={toggle}
             className={cn(
-              isOpen ? "relative" : "absolute -right-6 top-0",
+              open ? "relative" : "absolute -right-6 top-0",
               "transition-transform duration-200"
             )}
           >
@@ -83,7 +83,7 @@ export default function NavBar() {
           <Button
             variant="outline"
             className="relative h-10 w-full justify-start @2xs:px-3"
-            onClick={() => setIsOpen(true)}
+            onClick={toggle}
           >
             <Search
               className="h-4 w-4 @2xs:mr-2 shrink-0 @2xs:opacity-50"
