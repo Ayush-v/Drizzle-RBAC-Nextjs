@@ -14,10 +14,11 @@
     "db:drop": "drizzle-kit drop",
     "db:studio": "drizzle-kit studio",
     "db:migrate-push": "drizzle-kit generate:pg && drizzle-kit push:pg",
-    "db:seed": "node --loader esbuild-register/loader -r esbuild-register ./src/db/seed.ts",
-    "db:utils": "node --loader esbuild-register/loader -r esbuild-register ./src/db/db-utils.ts"
+    "db:seed": "node --loader esbuild-register/loader -r esbuild-register ./src/server/db/seed.ts",
+    "db:utils": "node --loader esbuild-register/loader -r esbuild-register ./src/server/db/db-utils.ts"
   },
   "dependencies": {
+    "@auth/drizzle-adapter": "^0.3.4",
     "@faker-js/faker": "^8.2.0",
     "@hookform/resolvers": "^3.3.2",
     "@radix-ui/react-accordion": "^1.1.2",
@@ -57,6 +58,7 @@
     "drizzle-orm": "^0.28.6",
     "lucide-react": "^0.287.0",
     "next": "13.5.5",
+    "next-auth": "^4.23.2",
     "next-themes": "^0.2.1",
     "pg": "^8.11.3",
     "react": "^18.2.0",

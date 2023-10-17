@@ -1,4 +1,4 @@
-import { db } from "@/db";
+import { db } from "@/server/db";
 
 import Header from "@/components/Header";
 import {
