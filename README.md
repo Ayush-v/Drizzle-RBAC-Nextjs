@@ -1,36 +1,47 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 📌 Overview
 
-## Getting Started
+Drizzle-RBAC-Nextjs is a project that utilizes various libraries and tools, including faker-js/faker, hookform/resolvers, radix-ui/react-accordion, and more. It also relies on essential dependencies such as bcryptjs, drizzle-orm, next, react, tailwindcss, and typescript.
 
-First, run the development server:
+## ⚙️ Setting Up
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+#### DB_URL
+
+- Install PostgreSQL on the local machine.
+- Create a database named "drizzle-rbac".
+- Create a user named "dev" with the password "dev".
+- Grant all privileges on the "drizzle-rbac" database to the "dev" user.
+- Use the URL format "postgresql://dev:dev@localhost:3308/drizzle-rbac".
+
+## 🚀 Run Locally
+
+1.Clone the Drizzle-RBAC-Nextjs repository:
+
+```sh
+git clone https://github.com/Ayush-v/Drizzle-RBAC-Nextjs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2.Install the dependencies with one of the package managers listed below:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+pnpm install
+bun install
+npm install
+yarn install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+3.Start the development mode:
 
-## Learn More
+```bash
+pnpm dev
+bun dev
+npm run dev
+yarn dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+## ☁️ Deploy
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+`[Application name](Your App URL)`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## 📄 License
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+[**Add Your License**](https://choosealicense.com)

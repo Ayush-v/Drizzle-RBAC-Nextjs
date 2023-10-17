@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import NavBar from "./_components/navbar";
 import Header from "./_components/header";
 
-export default function DashBoardLayout({ children }: { children: ReactNode }) {
+export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className="h-screen antialiased">
       <div className="h-full p-1 sm:p-2">

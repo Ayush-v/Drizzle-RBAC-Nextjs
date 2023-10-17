@@ -6,7 +6,7 @@ export const navlinks = [
     icon: (
       <HomeIcon className="@2xs:mr-2 h-4 w-4 flex-shrink-0 transition-all" />
     ),
-    href: "/",
+    href: "/dashboard",
   },
   {
     title: "Users",
