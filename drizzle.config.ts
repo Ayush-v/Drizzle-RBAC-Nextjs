@@ -1,13 +1,11 @@
 import { Config } from "drizzle-kit";
-import dotenv from "dotenv";
-
-dotenv.config();
+import { env } from "@/env.mjs";
 
 export default {
   schema: "./src/db/schema.ts",
   out: "./drizzle",
   driver: "pg",
   dbCredentials: {
-    connectionString: process.env.DB_URL!,
+    connectionString: env.DB_URL!,
   },
 } satisfies Config;
