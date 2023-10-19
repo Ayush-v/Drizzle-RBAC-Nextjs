@@ -6,7 +6,7 @@ import {
   permissionsToRoles,
   role,
   sessions,
-  user,
+  users,
   usersToRoles,
   verificationTokens,
 } from "./schema";
@@ -30,7 +30,7 @@ const main = async () => {
   cleanupDB(db, verificationTokens);
   cleanupDB(db, sessions);
   cleanupDB(db, permissionsToRoles);
-  cleanupDB(db, user);
+  cleanupDB(db, users);
   cleanupDB(db, note);
   cleanupDB(db, role);
   cleanupDB(db, permission);
@@ -100,10 +100,10 @@ const main = async () => {
     const userData = createUser();
 
     const createUse = await db
-      .insert(user)
+      .insert(users)
       .values({ ...userData, password: createPassword(userData.username) })
       .returning({
-        userId: user.id,
+        userId: users.id,
       });
 
     await db.insert(note).values(
@@ -125,7 +125,7 @@ const main = async () => {
 
   console.time(`👨🏻‍💻 Created admin user "Codie"`);
   const Codie = await db
-    .insert(user)
+    .insert(users)
     .values({
       email: "codie@code.dev",
       name: "codie",
@@ -133,8 +133,8 @@ const main = async () => {
       password: createPassword("codiedev"),
     })
     .returning({
-      userId: user.id,
-      userName: user.username,
+      userId: users.id,
+      userName: users.username,
     });
 
   await db.insert(note).values(

@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@auth/drizzle-adapter':
     specifier: ^0.3.4
-    version: 0.3.4(nodemailer@6.9.6)
+    version: 0.3.4
   '@faker-js/faker':
     specifier: ^8.2.0
     version: 8.2.0
@@ -129,14 +129,11 @@ dependencies:
     specifier: 13.5.5
     version: 13.5.5(react-dom@18.2.0)(react@18.2.0)
   next-auth:
-    specifier: ^4.23.2
-    version: 4.23.2(next@13.5.5)(nodemailer@6.9.6)(react-dom@18.2.0)(react@18.2.0)
+    specifier: ^4.24.3
+    version: 4.24.3(next@13.5.5)(react-dom@18.2.0)(react@18.2.0)
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@13.5.5)(react-dom@18.2.0)(react@18.2.0)
-  nodemailer:
-    specifier: ^6.9.6
-    version: 6.9.6
   pg:
     specifier: ^8.11.3
     version: 8.11.3
@@ -220,7 +217,7 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  /@auth/core@0.17.0(nodemailer@6.9.6):
+  /@auth/core@0.17.0:
     resolution: {integrity: sha512-YkbWuXny6sv0gF/sYm7KD3GxnnGxJomoQJzibzhJuwVOYjPUjjYBv/JMTkYcfpBuPHoHZwTVR3y1J+/W18oRxA==}
     peerDependencies:
       nodemailer: ^6.8.0
@@ -231,16 +228,15 @@ packages:
       '@panva/hkdf': 1.1.1
       cookie: 0.5.0
       jose: 4.15.4
-      nodemailer: 6.9.6
       oauth4webapi: 2.3.0
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
 
-  /@auth/drizzle-adapter@0.3.4(nodemailer@6.9.6):
+  /@auth/drizzle-adapter@0.3.4:
     resolution: {integrity: sha512-3N734pgz7UJa+p1GBBl4OaORD7Ka6AIgfgM8W9b3UZjvIMnyT1dUZB6JleNg52Qskzh9ULtBuT1Lzb9/gKxsgQ==}
     dependencies:
-      '@auth/core': 0.17.0(nodemailer@6.9.6)
+      '@auth/core': 0.17.0
     transitivePeerDependencies:
       - nodemailer
     dev: false
@@ -3985,8 +3981,8 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth@4.23.2(next@13.5.5)(nodemailer@6.9.6)(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-VRmInu0r/yZNFQheDFeOKtiugu3bt90Po3owAQDnFQ3YLQFmUKgFjcE2+3L0ny5jsJpBXaKbm7j7W2QTc6Ye2A==}
+  /next-auth@4.24.3(next@13.5.5)(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-n1EvmY7MwQMSOkCh6jhI6uBneB6VVtkYELVMEwVaCLD1mBD3IAAucwk+90kgxramW09nSp5drvynwfNCi1JjaQ==}
     peerDependencies:
       next: ^12.2.5 || ^13
       nodemailer: ^6.6.5
@@ -4001,11 +3997,10 @@ packages:
       cookie: 0.5.0
       jose: 4.15.4
       next: 13.5.5(react-dom@18.2.0)(react@18.2.0)
-      nodemailer: 6.9.6
       oauth: 0.9.15
       openid-client: 5.6.1
-      preact: 10.18.1
-      preact-render-to-string: 5.2.6(preact@10.18.1)
+      preact: 10.11.3
+      preact-render-to-string: 5.2.3(preact@10.11.3)
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       uuid: 8.3.2
@@ -4069,11 +4064,6 @@ packages:
   /node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
     dev: true
-
-  /nodemailer@6.9.6:
-    resolution: {integrity: sha512-s7pDtWwe5fLMkQUhw8TkWB/wnZ7SRdd9HRZslq/s24hlZvBP3j32N/ETLmnqTpmj4xoBZL9fOWyCIZ7r2HORHg==}
-    engines: {node: '>=6.0.0'}
-    dev: false
 
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}
@@ -4456,21 +4446,8 @@ packages:
       pretty-format: 3.8.0
     dev: false
 
-  /preact-render-to-string@5.2.6(preact@10.18.1):
-    resolution: {integrity: sha512-JyhErpYOvBV1hEPwIxc/fHWXPfnEGdRKxc8gFdAZ7XV4tlzyzG847XAyEZqoDnynP88akM4eaHcSOzNcLWFguw==}
-    peerDependencies:
-      preact: '>=10'
-    dependencies:
-      preact: 10.18.1
-      pretty-format: 3.8.0
-    dev: false
-
   /preact@10.11.3:
     resolution: {integrity: sha512-eY93IVpod/zG3uMF22Unl8h9KkrcKIRs2EGar8hwLZZDU1lkjph303V9HZBwufh2s736U6VXuhD109LYqPoffg==}
-    dev: false
-
-  /preact@10.18.1:
-    resolution: {integrity: sha512-mKUD7RRkQQM6s7Rkmi7IFkoEHjuFqRQUaXamO61E6Nn7vqF/bo7EZCmSyrUnp2UWHw0O7XjZ2eeXis+m7tf4lg==}
     dev: false
 
   /prelude-ls@1.2.1:

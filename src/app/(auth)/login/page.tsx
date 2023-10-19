@@ -4,9 +4,13 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 function AuthSignInPage() {
+  const { data } = useSession();
+
+  // console.log(data);
+
   async function submitEmail(e: any) {
     e.preventDefault();
 
@@ -17,6 +21,11 @@ function AuthSignInPage() {
     console.log("submitEmail", formData.get("email"));
     return;
   }
+  async function googleSignIn() {
+    await signIn("google");
+
+    return;
+  }
 
   return (
     <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w-[350px]">
@@ -25,6 +34,7 @@ function AuthSignInPage() {
         <p className="text-sm text-muted-foreground">
           A login link will be sent to your email! to login
         </p>
+        <p>{data?.user?.email}</p>
       </div>
       <form onSubmit={submitEmail}>
         <div className="grid gap-2">
@@ -58,8 +68,11 @@ function AuthSignInPage() {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled>
+      <Button variant="outline" type="button" onClick={googleSignIn}>
         Google
+      </Button>
+      <Button variant="outline" type="button" onClick={() => signOut()}>
+        logout
       </Button>
       <p className="px-8 text-center text-sm text-muted-foreground">
         By clicking continue, you agree to our{" "}

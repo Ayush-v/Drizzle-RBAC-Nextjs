@@ -25,28 +25,31 @@ import EmailProvider from "next-auth/providers/email";
 // }
 
 export const authOptions: NextAuthOptions = {
-  callbacks: {
-    session: ({ session, user }) => ({
-      ...session,
-      user: {
-        ...session.user,
-        id: user.id,
-      },
-    }),
-  },
-  adapter: DrizzleAdapter(db),
+  // callbacks: {
+  //   session: ({ session, user }) => ({
+  //     ...session,
+  //     user: {
+  //       ...session.user,
+  //       id: user.id,
+  //     },
+  //   }),
+  // },
+  // adapter: DrizzleAdapter(db),
   providers: [
     GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-      authorization: { params: { access_type: "offline", prompt: "consent" } },
+      clientId: env.GOOGLE_CLIENT_ID!,
+      clientSecret: env.GOOGLE_CLIENT_SECRET!,
+      // authorization: { params: { access_type: "offline", prompt: "consent" } },
     }),
-    EmailProvider({
-      server: env.EMAIL_SERVER,
-      from: env.EMAIL_FROM,
-      maxAge: 15 * 60, // Magic links are valid for 15 min only
-    }),
+    // EmailProvider({
+    //   server: env.EMAIL_SERVER,
+    //   from: env.EMAIL_FROM,
+    //   maxAge: 15 * 60, // Magic links are valid for 15 min only
+    // }),
   ],
+  pages: {
+    signIn: "/login",
+  },
 };
 
 /**
@@ -54,4 +57,4 @@ export const authOptions: NextAuthOptions = {
  *
  * @see https://next-auth.js.org/configuration/nextjs
  */
-export const getServerAuthSession = () => getServerSession(authOptions);
+// export const getServerAuthSession = () => getServerSession(authOptions);

@@ -12,7 +12,7 @@ import {
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "next-auth/adapters";
 
-export const user = pgTable("user", {
+export const users = pgTable("user", {
   id: serial("id").primaryKey(),
   name: varchar("name", { length: 256 }),
   username: varchar("username", { length: 256 }).unique().notNull(),
@@ -22,7 +22,7 @@ export const user = pgTable("user", {
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
 
-export const userRelations = relations(user, ({ many }) => ({
+export const userRelations = relations(users, ({ many }) => ({
   notes: many(note),
   roles: many(usersToRoles),
 }));
@@ -32,7 +32,7 @@ export const accounts = pgTable(
   {
     userId: integer("user_id")
       .notNull()
-      .references(() => user.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
     provider: text("provider").notNull(),
     providerAccountId: text("providerAccountId").notNull(),
@@ -53,7 +53,7 @@ export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
   userId: integer("userId")
     .notNull()
-    .references(() => user.id, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
 });
 
@@ -90,7 +90,7 @@ export const usersToRoles = pgTable(
       .references(() => role.id, { onDelete: "cascade" }),
     userId: integer("user_id")
       .notNull()
-      .references(() => user.id, { onDelete: "cascade" }),
+      .references(() => users.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey(t.roleId, t.userId),
@@ -102,9 +102,9 @@ export const usersToRolesRelations = relations(usersToRoles, ({ one }) => ({
     fields: [usersToRoles.roleId],
     references: [role.id],
   }),
-  user: one(user, {
+  user: one(users, {
     fields: [usersToRoles.userId],
-    references: [user.id],
+    references: [users.id],
   }),
 }));
 
@@ -167,5 +167,5 @@ export const note = pgTable("note", {
 });
 
 export const noteReations = relations(note, ({ one }) => ({
-  owner: one(user, { fields: [note.ownerId], references: [user.username] }),
+  owner: one(users, { fields: [note.ownerId], references: [users.username] }),
 }));
