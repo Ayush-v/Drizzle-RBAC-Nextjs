@@ -7,7 +7,7 @@ settings:
 dependencies:
   '@auth/drizzle-adapter':
     specifier: ^0.3.4
-    version: 0.3.4
+    version: 0.3.4(nodemailer@6.9.6)
   '@faker-js/faker':
     specifier: ^8.2.0
     version: 8.2.0
@@ -116,21 +116,27 @@ dependencies:
   date-fns:
     specifier: ^2.30.0
     version: 2.30.0
+  dotenv:
+    specifier: ^16.3.1
+    version: 16.3.1
   drizzle-orm:
     specifier: ^0.28.6
     version: 0.28.6(@types/pg@8.10.5)(pg@8.11.3)
   lucide-react:
-    specifier: ^0.287.0
-    version: 0.287.0(react@18.2.0)
+    specifier: ^0.288.0
+    version: 0.288.0(react@18.2.0)
   next:
     specifier: 13.5.5
     version: 13.5.5(react-dom@18.2.0)(react@18.2.0)
   next-auth:
     specifier: ^4.23.2
-    version: 4.23.2(next@13.5.5)(react-dom@18.2.0)(react@18.2.0)
+    version: 4.23.2(next@13.5.5)(nodemailer@6.9.6)(react-dom@18.2.0)(react@18.2.0)
   next-themes:
     specifier: ^0.2.1
     version: 0.2.1(next@13.5.5)(react-dom@18.2.0)(react@18.2.0)
+  nodemailer:
+    specifier: ^6.9.6
+    version: 6.9.6
   pg:
     specifier: ^8.11.3
     version: 8.11.3
@@ -161,8 +167,8 @@ dependencies:
 
 devDependencies:
   '@types/bcryptjs':
-    specifier: ^2.4.4
-    version: 2.4.4
+    specifier: ^2.4.5
+    version: 2.4.5
   '@types/node':
     specifier: ^20.8.6
     version: 20.8.6
@@ -214,7 +220,7 @@ packages:
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
     engines: {node: '>=10'}
 
-  /@auth/core@0.17.0:
+  /@auth/core@0.17.0(nodemailer@6.9.6):
     resolution: {integrity: sha512-YkbWuXny6sv0gF/sYm7KD3GxnnGxJomoQJzibzhJuwVOYjPUjjYBv/JMTkYcfpBuPHoHZwTVR3y1J+/W18oRxA==}
     peerDependencies:
       nodemailer: ^6.8.0
@@ -225,15 +231,16 @@ packages:
       '@panva/hkdf': 1.1.1
       cookie: 0.5.0
       jose: 4.15.4
+      nodemailer: 6.9.6
       oauth4webapi: 2.3.0
       preact: 10.11.3
       preact-render-to-string: 5.2.3(preact@10.11.3)
     dev: false
 
-  /@auth/drizzle-adapter@0.3.4:
+  /@auth/drizzle-adapter@0.3.4(nodemailer@6.9.6):
     resolution: {integrity: sha512-3N734pgz7UJa+p1GBBl4OaORD7Ka6AIgfgM8W9b3UZjvIMnyT1dUZB6JleNg52Qskzh9ULtBuT1Lzb9/gKxsgQ==}
     dependencies:
-      '@auth/core': 0.17.0
+      '@auth/core': 0.17.0(nodemailer@6.9.6)
     transitivePeerDependencies:
       - nodemailer
     dev: false
@@ -2123,8 +2130,8 @@ packages:
       tailwindcss: 3.3.3
     dev: false
 
-  /@types/bcryptjs@2.4.4:
-    resolution: {integrity: sha512-9wlJI7k5gRyJEC4yrV7DubzNQFTPiykYxUA6lBtsk5NlOfW9oWLJ1HdIA4YtE+6C3i3mTpDQQEosJ2rVZfBWnw==}
+  /@types/bcryptjs@2.4.5:
+    resolution: {integrity: sha512-tOF6TivOIvq+TWQm78335CMdyVJhpBG3NUdWQDAp95ax4E2rSKbws/ELHLk5EBoucwx/tHt3/hhLOHwWJgVrSw==}
     dev: true
 
   /@types/json5@0.0.29:
@@ -2708,6 +2715,11 @@ packages:
     dependencies:
       esutils: 2.0.3
     dev: true
+
+  /dotenv@16.3.1:
+    resolution: {integrity: sha512-IPzF4w4/Rd94bA9imS68tZBaYyBWSCE47V1RGuMrB94iyTOIEwRmVL2x/4An+6mETpLrKJ5hQkB8W4kFAadeIQ==}
+    engines: {node: '>=12'}
+    dev: false
 
   /dreamopt@0.8.0:
     resolution: {integrity: sha512-vyJTp8+mC+G+5dfgsY+r3ckxlz+QMX40VjPQsZc5gxVAxLmi64TBoVkP54A/pRAXMXsbu2GMMBrZPxNv23waMg==}
@@ -3894,8 +3906,8 @@ packages:
       es5-ext: 0.10.62
     dev: true
 
-  /lucide-react@0.287.0(react@18.2.0):
-    resolution: {integrity: sha512-auxP2bTGiMoELzX+6ItTeNzLmhGd/O+PHBsrXV2YwPXYCxarIFJhiMOSzFT9a1GWeYPSZtnWdLr79IVXr/5JqQ==}
+  /lucide-react@0.288.0(react@18.2.0):
+    resolution: {integrity: sha512-ikhb/9LOkq9orPoLV9lLC4UYyoXQycBhIgH7H59ahOkk0mkcAqkD52m84RXedE/qVqZHW8rEJquInT4xGmsNqw==}
     peerDependencies:
       react: ^16.5.1 || ^17.0.0 || ^18.0.0
     dependencies:
@@ -3973,7 +3985,7 @@ packages:
     resolution: {integrity: sha512-OWND8ei3VtNC9h7V60qff3SVobHr996CTwgxubgyQYEpg290h9J0buyECNNJexkFm5sOajh5G116RYA1c8ZMSw==}
     dev: true
 
-  /next-auth@4.23.2(next@13.5.5)(react-dom@18.2.0)(react@18.2.0):
+  /next-auth@4.23.2(next@13.5.5)(nodemailer@6.9.6)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-VRmInu0r/yZNFQheDFeOKtiugu3bt90Po3owAQDnFQ3YLQFmUKgFjcE2+3L0ny5jsJpBXaKbm7j7W2QTc6Ye2A==}
     peerDependencies:
       next: ^12.2.5 || ^13
@@ -3989,6 +4001,7 @@ packages:
       cookie: 0.5.0
       jose: 4.15.4
       next: 13.5.5(react-dom@18.2.0)(react@18.2.0)
+      nodemailer: 6.9.6
       oauth: 0.9.15
       openid-client: 5.6.1
       preact: 10.18.1
@@ -4056,6 +4069,11 @@ packages:
   /node-releases@2.0.13:
     resolution: {integrity: sha512-uYr7J37ae/ORWdZeQ1xxMJe3NtdmqMC/JZK+geofDrkLUApKRHPd18/TxtBOJ4A0/+uUIliorNrfYV6s1b02eQ==}
     dev: true
+
+  /nodemailer@6.9.6:
+    resolution: {integrity: sha512-s7pDtWwe5fLMkQUhw8TkWB/wnZ7SRdd9HRZslq/s24hlZvBP3j32N/ETLmnqTpmj4xoBZL9fOWyCIZ7r2HORHg==}
+    engines: {node: '>=6.0.0'}
+    dev: false
 
   /normalize-path@3.0.0:
     resolution: {integrity: sha512-6eZs5Ls3WtCisHWp9S2GUy8dqkpGi4BVSz3GaqiE6ezub0512ESztXUwUB6C6IKbQkY2Pnb/mD4WYojCRwcwLA==}

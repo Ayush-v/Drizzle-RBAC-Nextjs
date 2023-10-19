@@ -30,7 +30,7 @@ export const userRelations = relations(user, ({ many }) => ({
 export const accounts = pgTable(
   "account",
   {
-    userId: integer("userId")
+    userId: integer("user_id")
       .notNull()
       .references(() => user.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
@@ -87,10 +87,10 @@ export const usersToRoles = pgTable(
   {
     roleId: uuid("role_id")
       .notNull()
-      .references(() => role.id),
+      .references(() => role.id, { onDelete: "cascade" }),
     userId: integer("user_id")
       .notNull()
-      .references(() => user.id),
+      .references(() => user.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey(t.roleId, t.userId),
@@ -133,10 +133,10 @@ export const permissionsToRoles = pgTable(
   {
     roleId: uuid("role_id")
       .notNull()
-      .references(() => role.id),
+      .references(() => role.id, { onDelete: "cascade" }),
     permissionId: uuid("permission_id")
       .notNull()
-      .references(() => permission.id),
+      .references(() => permission.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey(t.roleId, t.permissionId),

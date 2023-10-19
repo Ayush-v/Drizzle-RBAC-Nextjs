@@ -55,11 +55,13 @@
     "clsx": "^2.0.0",
     "cmdk": "^0.2.0",
     "date-fns": "^2.30.0",
+    "dotenv": "^16.3.1",
     "drizzle-orm": "^0.28.6",
-    "lucide-react": "^0.287.0",
+    "lucide-react": "^0.288.0",
     "next": "13.5.5",
     "next-auth": "^4.23.2",
     "next-themes": "^0.2.1",
+    "nodemailer": "^6.9.6",
     "pg": "^8.11.3",
     "react": "^18.2.0",
     "react-day-picker": "^8.9.0",
@@ -71,7 +73,7 @@
     "zustand": "^4.4.3"
   },
   "devDependencies": {
-    "@types/bcryptjs": "^2.4.4",
+    "@types/bcryptjs": "^2.4.5",
     "@types/node": "^20.8.6",
     "@types/pg": "^8.10.5",
     "@types/react": "^18.2.28",

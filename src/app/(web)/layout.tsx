@@ -17,7 +17,7 @@ export default function WebLayout({ children }: { children: ReactNode }) {
           </div>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Link href={"/signIn"}>
+            <Link href={"/login"}>
               <Button size={"sm"} variant={"link"}>
                 Log in <span aria-hidden="true">&rarr;</span>
               </Button>

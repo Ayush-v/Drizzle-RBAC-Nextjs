@@ -1,4 +1,4 @@
-import { db } from "@/server/db";
+// import { db } from "@/server/db";
 
 import Header from "@/components/Header";
 import {
@@ -11,24 +11,24 @@ import {
 } from "@/components/ui/table";
 
 export default async function Home() {
-  const users = await db.query.user.findMany({
-    with: {
-      notes: true,
-      roles: {
-        with: {
-          role: {
-            with: {
-              permissions: {
-                with: {
-                  permission: true,
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  });
+  // const users = await db.query.user.findMany({
+  //   with: {
+  //     notes: true,
+  //     roles: {
+  //       with: {
+  //         role: {
+  //           with: {
+  //             permissions: {
+  //               with: {
+  //                 permission: true,
+  //               },
+  //             },
+  //           },
+  //         },
+  //       },
+  //     },
+  //   },
+  // });
 
   return (
     <div>
@@ -44,7 +44,7 @@ export default async function Home() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users.map((user) => (
+          {/* {users.map((user) => (
             <TableRow key={user.id}>
               <TableCell>{user.id}</TableCell>
               <TableCell>{user.name}</TableCell>
@@ -63,7 +63,7 @@ export default async function Home() {
                 {new Date(user.createdAt ?? "").toLocaleString()}
               </TableCell>
             </TableRow>
-          ))}
+          ))} */}
         </TableBody>
       </Table>
     </div>

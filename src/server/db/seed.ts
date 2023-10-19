@@ -14,10 +14,10 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { cleanupDB, createPassword, createUser } from "./db-utils";
 import { faker } from "@faker-js/faker";
 import { db as database } from ".";
-import { env } from "@/env.mjs";
+import "dotenv/config";
 
 const pool = new Pool({
-  connectionString: env.DB_URL,
+  connectionString: process.env.DB_URL,
 });
 
 const db = drizzle(pool);
