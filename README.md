@@ -1,8 +1,13 @@
 # 📌 Overview
 
-Drizzle-RBAC-Nextjs is a project that utilizes various libraries and tools, including faker-js/faker, hookform/resolvers, radix-ui/react-accordion, and more. It also relies on essential dependencies such as bcryptjs, drizzle-orm, next, react, tailwindcss, and typescript.
+Drizzle-RBAC-Nextjs is a project that utilizes various libraries and tools, including drizzle orm, next-auth, nextjs,, faker-js/faker, react-hooks-form, radix, and more. I am talking a challege to create Role Based Access Control(RBAC) project for my knowledge and to improve my portfolio.
+
+### Project does not need a pg hosting to run you can use docker to run it locally
 
 ## ⚙️ Setting Up
+
+- `cp .env.example .env`
+- follow https://next-auth.js.org/ for auth setup
 
 #### DB_URL
 
@@ -24,24 +29,12 @@ git clone https://github.com/Ayush-v/Drizzle-RBAC-Nextjs
 
 ```bash
 pnpm install
-bun install
-npm install
-yarn install
 ```
 
 3.Start the development mode:
 
 ```bash
 pnpm dev
-bun dev
-npm run dev
-yarn dev
 ```
 
-## ☁️ Deploy
-
-`[Application name](Your App URL)`
-
-## 📄 License
-
-[**Add Your License**](https://choosealicense.com)
+### Work in progress .....
