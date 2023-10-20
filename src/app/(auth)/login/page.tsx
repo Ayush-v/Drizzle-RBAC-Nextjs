@@ -68,7 +68,12 @@ function AuthSignInPage() {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" onClick={googleSignIn}>
+      <Button
+        variant="outline"
+        type="button"
+        onClick={() => signIn()}
+        // onClick={googleSignIn}
+      >
         Google
       </Button>
       <Button variant="outline" type="button" onClick={() => signOut()}>

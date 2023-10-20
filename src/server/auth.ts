@@ -34,11 +34,11 @@ export const authOptions: NextAuthOptions = {
   //     },
   //   }),
   // },
-  // adapter: DrizzleAdapter(db),
+  adapter: DrizzleAdapter(db),
   providers: [
     GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID!,
-      clientSecret: env.GOOGLE_CLIENT_SECRET!,
+      clientId: env.GOOGLE_CLIENT_ID ?? "",
+      clientSecret: env.GOOGLE_CLIENT_SECRET ?? "",
       // authorization: { params: { access_type: "offline", prompt: "consent" } },
     }),
     // EmailProvider({
@@ -47,9 +47,9 @@ export const authOptions: NextAuthOptions = {
     //   maxAge: 15 * 60, // Magic links are valid for 15 min only
     // }),
   ],
-  pages: {
-    signIn: "/login",
-  },
+  // pages: {
+  //   signIn: "/login",
+  // },
 };
 
 /**
