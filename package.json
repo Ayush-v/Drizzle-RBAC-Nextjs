@@ -14,7 +14,7 @@
     "db:drop": "drizzle-kit drop",
     "db:studio": "drizzle-kit studio",
     "db:migrate-push": "drizzle-kit generate:pg && drizzle-kit push:pg",
-    "db:seed": "node --loader esbuild-register/loader -r esbuild-register ./src/server/db/seed.ts"
+    "db:seed": "node -r esbuild-register ./src/server/db/seed.ts"
   },
   "dependencies": {
     "@auth/core": "^0.18.0",
