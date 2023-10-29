@@ -23,8 +23,6 @@ function AuthSignInPage() {
   }
   async function googleSignIn() {
     await signIn("google");
-
-    return;
   }
 
   return (
@@ -68,12 +66,7 @@ function AuthSignInPage() {
           </span>
         </div>
       </div>
-      <Button
-        variant="outline"
-        type="button"
-        onClick={() => signIn()}
-        // onClick={googleSignIn}
-      >
+      <Button variant="outline" type="button" onClick={googleSignIn}>
         Google
       </Button>
       <Button variant="outline" type="button" onClick={() => signOut()}>

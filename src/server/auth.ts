@@ -47,9 +47,10 @@ export const authOptions: NextAuthOptions = {
     //   maxAge: 15 * 60, // Magic links are valid for 15 min only
     // }),
   ],
-  // pages: {
-  //   signIn: "/login",
-  // },
+  secret: env.NEXTAUTH_SECRET ?? "",
+  pages: {
+    signIn: "/login",
+  },
 };
 
 /**
