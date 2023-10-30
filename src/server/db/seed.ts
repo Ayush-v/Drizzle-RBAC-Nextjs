@@ -14,10 +14,10 @@ import { drizzle } from "drizzle-orm/node-postgres";
 import { cleanupDB, createPassword, createUser } from "./db-utils";
 import { faker } from "@faker-js/faker";
 import { db as database } from "./";
-import "dotenv/config";
+import { env } from "@/env.mjs";
 
 const pool = new Pool({
-  connectionString: process.env.DB_URL,
+  connectionString: env.DB_URL,
 });
 
 const db = drizzle(pool);
@@ -26,10 +26,10 @@ const main = async () => {
   console.log("🌱 Seeding...");
   console.time(`🌱 Database has been seeded`);
   console.time("🧹 Cleaned up the database...");
-  cleanupDB(db, accounts);
   cleanupDB(db, verificationTokens);
-  cleanupDB(db, sessions);
   cleanupDB(db, permissionsToRoles);
+  cleanupDB(db, accounts);
+  cleanupDB(db, sessions);
   cleanupDB(db, users);
   cleanupDB(db, note);
   cleanupDB(db, role);

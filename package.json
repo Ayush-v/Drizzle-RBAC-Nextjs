@@ -14,7 +14,7 @@
     "db:drop": "drizzle-kit drop",
     "db:studio": "drizzle-kit studio",
     "db:migrate-push": "drizzle-kit generate:pg && drizzle-kit push:pg",
-    "db:seed": "node -r esbuild-register ./src/server/db/seed.ts"
+    "db:seed": "tsx ./src/server/db/seed.ts"
   },
   "dependencies": {
     "@auth/core": "^0.18.0",
@@ -80,11 +80,11 @@
     "autoprefixer": "^10.4.16",
     "drizzle-kit": "^0.19.13",
     "enforce-unique": "^1.2.0",
-    "esbuild-register": "^3.5.0",
     "eslint": "^8.52.0",
     "eslint-config-next": "14.0.0",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.5",
+    "tsx": "^3.14.0",
     "typescript": "^5.2.2"
   }
 }

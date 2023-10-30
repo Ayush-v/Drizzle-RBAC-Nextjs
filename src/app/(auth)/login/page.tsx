@@ -23,6 +23,7 @@ function AuthSignInPage() {
   }
   async function googleSignIn() {
     await signIn("google");
+    return;
   }
 
   return (
