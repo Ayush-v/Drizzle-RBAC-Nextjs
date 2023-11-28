@@ -3,7 +3,6 @@ import {
   integer,
   pgTable,
   primaryKey,
-  serial,
   text,
   timestamp,
   uuid,
@@ -13,12 +12,12 @@ import {
 import type { AdapterAccount } from "@auth/core/adapters";
 
 export const users = pgTable("user", {
-  id: serial("id").primaryKey(),
-  name: varchar("name", { length: 256 }),
-  username: varchar("username", { length: 256 }).unique().notNull(),
-  image: text("image"),
-  email: varchar("email", { length: 256 }).unique().notNull(),
+  id: text("id").notNull().primaryKey(),
+  name: text("name"),
+  // username: text("username").unique().notNull(),
+  email: text("email").unique().notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
+  image: text("image"),
   password: varchar("password", { length: 256 }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
 });
@@ -31,7 +30,7 @@ export const userRelations = relations(users, ({ many }) => ({
 export const accounts = pgTable(
   "account",
   {
-    userId: integer("userId")
+    userId: text("userId")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     type: text("type").$type<AdapterAccount["type"]>().notNull(),
@@ -46,13 +45,15 @@ export const accounts = pgTable(
     session_state: text("session_state"),
   },
   (account) => ({
-    compoundKey: primaryKey(account.provider, account.providerAccountId),
+    compoundKey: primaryKey({
+      columns: [account.provider, account.providerAccountId],
+    }),
   })
 );
 
 export const sessions = pgTable("session", {
   sessionToken: text("sessionToken").notNull().primaryKey(),
-  userId: integer("userId")
+  userId: text("userId")
     .notNull()
     .references(() => users.id, { onDelete: "cascade" }),
   expires: timestamp("expires", { mode: "date" }).notNull(),
@@ -66,7 +67,7 @@ export const verificationTokens = pgTable(
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
   (vt) => ({
-    compoundKey: primaryKey(vt.identifier, vt.token),
+    compoundKey: primaryKey({ columns: [vt.identifier, vt.token] }),
   })
 );
 
@@ -89,12 +90,12 @@ export const usersToRoles = pgTable(
     roleId: uuid("role_id")
       .notNull()
       .references(() => role.id, { onDelete: "cascade" }),
-    userId: integer("user_id")
+    userId: text("user_id")
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
   },
   (t) => ({
-    pk: primaryKey(t.roleId, t.userId),
+    pk: primaryKey({ columns: [t.roleId, t.userId] }),
   })
 );
 
@@ -140,7 +141,7 @@ export const permissionsToRoles = pgTable(
       .references(() => permission.id, { onDelete: "cascade" }),
   },
   (t) => ({
-    pk: primaryKey(t.roleId, t.permissionId),
+    pk: primaryKey({ columns: [t.roleId, t.permissionId] }),
   })
 );
 
@@ -162,13 +163,13 @@ export const note = pgTable("note", {
   id: uuid("id").primaryKey().defaultRandom(),
   title: varchar("title", { length: 256 }).notNull(),
   content: text("content").notNull(),
-  ownerId: varchar("owner")
+  ownerId: text("owner")
     .notNull()
-    .references(() => users.username, { onDelete: "cascade" }),
+    .references(() => users.id, { onDelete: "cascade" }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }),
 });
 
 export const noteReations = relations(note, ({ one }) => ({
-  owner: one(users, { fields: [note.ownerId], references: [users.username] }),
+  owner: one(users, { fields: [note.ownerId], references: [users.id] }),
 }));

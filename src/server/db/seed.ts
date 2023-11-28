@@ -101,7 +101,7 @@ const main = async () => {
 
     const createUse = await db
       .insert(users)
-      .values({ ...userData, password: createPassword(userData.username) })
+      .values({ ...userData, password: createPassword(userData.name) })
       .returning({
         userId: users.id,
       });
@@ -110,7 +110,7 @@ const main = async () => {
       Array.from({
         length: faker.number.int({ min: 1, max: 5 }),
       }).map(() => ({
-        ownerId: userData.username,
+        ownerId: userData.id,
         title: faker.lorem.sentence(),
         content: faker.lorem.paragraph(),
       }))
@@ -127,21 +127,22 @@ const main = async () => {
   const Codie = await db
     .insert(users)
     .values({
+      id: faker.string.uuid(),
       email: "codie@code.dev",
       name: "codie",
-      username: "codie",
+      // username: "codie",
       password: createPassword("codiedev"),
     })
     .returning({
       userId: users.id,
-      userName: users.username,
+      // userName: users.username,
     });
 
   await db.insert(note).values(
     Array.from({
       length: faker.number.int({ min: 2, max: 5 }),
     }).map(() => ({
-      ownerId: Codie[0].userName,
+      ownerId: Codie[0].userId,
       title: faker.lorem.sentence(),
       content: faker.lorem.paragraph(),
     }))
