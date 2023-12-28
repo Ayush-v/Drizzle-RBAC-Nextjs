@@ -14,7 +14,7 @@ import type { AdapterAccount } from "@auth/core/adapters";
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
   name: text("name"),
-  // username: text("username").unique().notNull(),
+  username: text("username").unique().notNull(),
   email: text("email").unique().notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
   image: text("image"),
@@ -165,11 +165,11 @@ export const note = pgTable("note", {
   content: text("content").notNull(),
   ownerId: text("owner")
     .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
+    .references(() => users.username, { onDelete: "cascade" }),
   createdAt: timestamp("created_at", { withTimezone: true }).defaultNow(),
   updatedAt: timestamp("updated_at", { withTimezone: true }),
 });
 
 export const noteReations = relations(note, ({ one }) => ({
-  owner: one(users, { fields: [note.ownerId], references: [users.id] }),
+  owner: one(users, { fields: [note.ownerId], references: [users.username] }),
 }));
